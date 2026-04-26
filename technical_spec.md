@@ -7,7 +7,13 @@
 - **Core Stack**: Next.js 14 (App Router), TypeScript.
 - **Styling**: Tailwind CSS (Minimalist Healthy White/Green theme).
 - **Database**: PostgreSQL with `node-pg` (Raw SQL only, no ORM).
-- **AI**: Gemini 1.5 Flash (Nutrition Engine).
+- **AI**: Gemini 2.5 Flash (Nutrition Engine).
+- **Containerization**: Docker & Docker Compose for consistent environments.
+
+---
+
+## 2. Implementation Strategy
+**Logic First Approach**: All core services (AI, Streaks, Calculations) will be implemented as pure-logic services before finalizing raw SQL database integration.
 
 ---
 

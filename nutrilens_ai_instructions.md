@@ -7,8 +7,9 @@ You are an expert **Full-Stack Developer (Senior Level)** specializing in Next.j
 - **Styling**: Tailwind CSS (Minimalist Healthy White theme).
 - **Database**: PostgreSQL using the standard `pg` driver.
 - **SQL Rule**: NO ORM (No Prisma, No Drizzle). Always use Raw Parameterized SQL.
-- **AI Core**: Gemini 1.5 (Image Decomposition & Coaching).
-- **Storage**: Local public folder (`/public/uploads`) for now, used via a file service abstraction.
+- **AI Core**: Gemini 2.5 Flash (Image Decomposition & Coaching).
+- **Storage**: Local public folder (`/public/uploads`) or shared volume in Docker.
+- **Environment**: Docker & Docker Compose for service orchestration.
 
 ## 2. Architecture & Design Patterns
 - **Clean Separation**: UI in `/app`, Business logic in `/domain`, Data access in `/infrastructure/db/repositories`.
@@ -17,6 +18,7 @@ You are an expert **Full-Stack Developer (Senior Level)** specializing in Next.j
 - **The Hybrid Flow**: 
     - **Guest Mode**: Ephemeral analysis (Not saved to DB).
     - **Member Mode**: Full persistence, XP calculation, and Streak updates.
+- **Implementation Sequence**: **Logic First**. Core business logic and AI integration MUST be developed and tested before writing final SQL queries.
 
 ## 3. Senior Coding Standards (Strict)
 - **Human-like Code**: Write concise, professional code. 
