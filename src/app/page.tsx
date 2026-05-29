@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Camera, Zap, BarChart3, Trophy, ArrowRight, Sparkles, Shield, Clock } from 'lucide-react';
 
 export default function HomePage() {
@@ -30,15 +31,15 @@ export default function HomePage() {
             </p>
 
             <div className="flex items-center justify-center gap-4 slide-up delay-300">
-              <a href="/analyze" className="btn-primary inline-flex items-center gap-2 no-underline">
+              <Link href="/analyze" className="btn-primary inline-flex items-center gap-2 no-underline">
                 <Camera className="w-5 h-5" />
                 เริ่มวิเคราะห์เลย
                 <ArrowRight className="w-4 h-4" />
-              </a>
-              <a href="/dashboard" className="btn-secondary inline-flex items-center gap-2 no-underline">
+              </Link>
+              <Link href="/dashboard" className="btn-secondary inline-flex items-center gap-2 no-underline">
                 <BarChart3 className="w-5 h-5" />
                 ดูแดชบอร์ด
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -183,11 +184,11 @@ export default function HomePage() {
             <p className="text-health-muted max-w-md mx-auto mb-8">
               เริ่มใช้งานได้เลยตอนนี้ ไม่ต้องสมัคร ไม่ต้องจ่าย แค่ถ่ายรูปอาหารแล้วรอดูมายากล
             </p>
-            <a href="/analyze" className="btn-primary inline-flex items-center gap-2 text-lg no-underline">
+            <Link href="/analyze" className="btn-primary inline-flex items-center gap-2 text-lg no-underline">
               <Camera className="w-5 h-5" />
               วิเคราะห์มื้อแรกของคุณ
               <ArrowRight className="w-5 h-5" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
+import Link from 'next/link';
 import { Camera, Upload, X, Loader2, Sparkles, ArrowRight } from 'lucide-react';
 import type { AnalysisResult } from '@/shared/types';
 
@@ -297,15 +298,15 @@ function ResultsView({
           วิเคราะห์อีกครั้ง
         </button>
         {isMember ? (
-          <a href="/history" className="btn-secondary inline-flex items-center gap-2 no-underline">
+          <Link href="/history" className="btn-secondary inline-flex items-center gap-2 no-underline">
             ดูประวัติทั้งหมด
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         ) : (
-          <a href="/dashboard" className="btn-secondary inline-flex items-center gap-2 no-underline">
+          <Link href="/register" className="btn-secondary inline-flex items-center gap-2 no-underline">
             สมัครสมาชิกเพื่อบันทึก
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         )}
       </div>
     </div>

@@ -90,7 +90,7 @@ export class StreakService {
     try {
       const res = await this.repository.findByUserId(userId);
       return success(res);
-    } catch (error) {
+    } catch {
       return failure('ไม่สามารถดึงข้อมูลสรุปได้');
     }
   }

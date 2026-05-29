@@ -1,12 +1,12 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserRepository } from './user.repository';
-import { RegisterPayload, LoginPayload, Result, success, failure, User } from '@/shared/types';
+import { RegisterPayload, LoginPayload, Result, success, failure, User, SafeUser, toSafeUser } from '@/shared/types';
 
 export class AuthService {
   constructor(private userRepository: UserRepository) {}
 
-  async register(payload: RegisterPayload): Promise<Result<{ user: User; token: string }>> {
+  async register(payload: RegisterPayload): Promise<Result<{ user: SafeUser; token: string }>> {
     console.log('[AuthService] Registering user:', payload.email);
     try {
       // Check if user exists
@@ -30,14 +30,14 @@ export class AuthService {
       // Generate token
       const token = this.generateToken(user);
 
-      return success({ user, token });
+      return success({ user: toSafeUser(user), token });
     } catch (error) {
       console.error('Registration error:', error);
       return failure('เกิดข้อผิดพลาดในการสมัครสมาชิก');
     }
   }
 
-  async login(payload: LoginPayload): Promise<Result<{ user: User; token: string }>> {
+  async login(payload: LoginPayload): Promise<Result<{ user: SafeUser; token: string }>> {
     try {
       // Find user
       const user = await this.userRepository.findByEmail(payload.email);
@@ -54,7 +54,7 @@ export class AuthService {
       // Generate token
       const token = this.generateToken(user);
 
-      return success({ user, token });
+      return success({ user: toSafeUser(user), token });
     } catch (error) {
       console.error('Login error:', error);
       return failure('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');

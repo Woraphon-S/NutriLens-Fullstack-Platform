@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/nodemon.json",
+  "//": "Runs `next dev` (Turbopack HMR already hot-reloads files under src/). nodemon only restarts the dev server when env/config files change, since next dev does NOT pick those up automatically.",
+  "watch": [
+    ".env",
+    ".env.local",
+    ".env.development",
+    "next.config.ts",
+    "tsconfig.json"
+  ],
+  "ext": "ts,js,mjs,cjs,json,env,local",
+  "ignore": [
+    ".next/**",
+    "node_modules/**",
+    "public/uploads/**",
+    "src/**"
+  ],
+  "exec": "next dev",
+  "delay": 1000
+}

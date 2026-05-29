@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -63,15 +64,15 @@ function Footer() {
           <div>
             <h4 className="font-semibold text-health-text mb-3">ลิงก์ด่วน</h4>
             <div className="flex flex-col gap-2">
-              <a href="/analyze" className="text-sm text-health-muted hover:text-health-green transition-colors no-underline">
+              <Link href="/analyze" className="text-sm text-health-muted hover:text-health-green transition-colors no-underline">
                 วิเคราะห์อาหาร
-              </a>
-              <a href="/dashboard" className="text-sm text-health-muted hover:text-health-green transition-colors no-underline">
+              </Link>
+              <Link href="/dashboard" className="text-sm text-health-muted hover:text-health-green transition-colors no-underline">
                 แดชบอร์ด
-              </a>
-              <a href="/history" className="text-sm text-health-muted hover:text-health-green transition-colors no-underline">
+              </Link>
+              <Link href="/history" className="text-sm text-health-muted hover:text-health-green transition-colors no-underline">
                 ประวัติการวิเคราะห์
-              </a>
+              </Link>
             </div>
           </div>
         </div>

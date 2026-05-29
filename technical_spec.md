@@ -4,7 +4,7 @@
 
 ## 1. Technical Framework
 - **Architecture**: Clean Modular Architecture (Domain-Driven design Lite).
-- **Core Stack**: Next.js 14 (App Router), TypeScript.
+- **Core Stack**: Next.js 16 (App Router), TypeScript.
 - **Styling**: Tailwind CSS (Minimalist Healthy White/Green theme).
 - **Database**: PostgreSQL with `node-pg` (Raw SQL only, no ORM).
 - **AI**: Gemini 2.5 Flash (Nutrition Engine).

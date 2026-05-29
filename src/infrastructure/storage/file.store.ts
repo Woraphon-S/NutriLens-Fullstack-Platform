@@ -27,7 +27,12 @@ export class FileStore {
       await this.ensureDir();
 
       const ext = mimeType.split('/')[1] === 'jpeg' ? 'jpg' : mimeType.split('/')[1];
-      const safeFilename = `${Date.now()}-${filename.replace(/[^a-zA-Z0-9.-]/g, '_')}.${ext}`;
+      // Strip any existing extension off the original name so we don't end up
+      // with a doubled suffix like "food.jpg.jpg".
+      const baseName = filename
+        .replace(/\.[^.]+$/, '')
+        .replace(/[^a-zA-Z0-9-]/g, '_');
+      const safeFilename = `${Date.now()}-${baseName}.${ext}`;
       const filePath = path.join(UPLOAD_DIR, safeFilename);
 
       await fs.writeFile(filePath, buffer);

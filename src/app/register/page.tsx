@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { User, Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
@@ -18,7 +19,6 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('เริ่มส่งข้อมูลไปที่เซิร์ฟเวอร์...');
     setLoading(true);
     setError('');
 
@@ -42,10 +42,12 @@ export default function RegisterPage() {
 
       router.push('/dashboard');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message);
-    } finally {      setLoading(false);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'เกิดข้อผิดพลาดในการสมัครสมาชิก';
+      setError(message);
+      toast.error(message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -129,10 +131,10 @@ export default function RegisterPage() {
 
           <div className="mt-8 pt-6 border-t border-health-border text-center">
             <p className="text-sm text-health-muted">
-              มีบัญชีอยู่แล้วใช่ไหม? 
-              <a href="/login" className="ml-1.5 font-bold text-health-green hover:underline">
+              มีบัญชีอยู่แล้วใช่ไหม?
+              <Link href="/login" className="ml-1.5 font-bold text-health-green hover:underline">
                 เข้าสู่ระบบที่นี่
-              </a>
+              </Link>
             </p>
           </div>
         </div>

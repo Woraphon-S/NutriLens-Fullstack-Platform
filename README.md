@@ -1,5 +1,51 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Local Development
+
+### 1. Start the database
+
+The app needs PostgreSQL. The quickest way is the bundled container (data is
+seeded from [`init.sql`](./init.sql), including a demo account):
+
+```bash
+npm run db:up        # docker compose up -d postgres  (exposes localhost:5432)
+```
+
+> Already running the full stack with `docker compose up`? You can skip this —
+> Postgres is included.
+
+### 2. Run the dev server
+
+Pick one:
+
+```bash
+npm run dev          # next dev (Turbopack) — hot-reloads files under src/
+npm run dev:nodemon  # same, but nodemon also restarts on .env.local / config changes
+```
+
+Both serve on [http://localhost:3000](http://localhost:3000) (it falls back to
+3001/3002 if the port is taken).
+
+#### Why `dev:nodemon`?
+
+`next dev` already hot-reloads everything under `src/`. What it does **not**
+pick up automatically are env/config files — editing `.env.local` or
+`next.config.ts` normally requires you to stop and restart the server. The
+`dev:nodemon` script (configured in [`nodemon.json`](./nodemon.json)) watches
+those files and restarts `next dev` for you, while leaving `src/` to Turbopack's
+faster HMR.
+
+### Demo account
+
+```
+email:    demo@nutrilens.ai
+password: demo1234
+```
+
+(or click **"ลองใช้งานด้วยบัญชีทดลอง (Demo)"** on the login page)
+
+---
+
 ## Getting Started
 
 First, run the development server:

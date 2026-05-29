@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Calendar, Search, ChevronDown, ChevronUp, Camera, Loader2 } from 'lucide-react';
 
 interface MealHistory {
@@ -18,6 +19,9 @@ interface MealHistory {
     fat: number;
   }>;
 }
+
+// Same shape as MealHistory but with analyzedAt still a JSON string (pre-parse)
+type RawMeal = Omit<MealHistory, 'analyzedAt'> & { analyzedAt: string };
 
 export default function HistoryPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,15 +44,15 @@ export default function HistoryPage() {
 
         if (result.success) {
           // Convert date strings back to Date objects
-          const processed = result.data.map((m: any) => ({
+          const processed: MealHistory[] = (result.data as RawMeal[]).map((m) => ({
             ...m,
-            analyzedAt: new Date(m.analyzedAt)
+            analyzedAt: new Date(m.analyzedAt),
           }));
           setHistory(processed);
         } else {
           setError(result.error || 'ไม่สามารถโหลดประวัติได้');
         }
-      } catch (err) {
+      } catch {
         setError('เกิดข้อผิดพลาดในการเชื่อมต่อ');
       } finally {
         setIsLoading(false);
@@ -112,10 +116,10 @@ export default function HistoryPage() {
           <div className="text-center py-20 slide-up delay-200">
             <span className="text-5xl mb-4 block">🍽️</span>
             <p className="text-health-muted mb-4">ยังไม่มีประวัติการวิเคราะห์</p>
-            <a href="/analyze" className="btn-primary inline-flex items-center gap-2 no-underline">
+            <Link href="/analyze" className="btn-primary inline-flex items-center gap-2 no-underline">
               <Camera className="w-5 h-5" />
               เริ่มวิเคราะห์มื้อแรก
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="space-y-8 slide-up delay-200">

@@ -1,7 +1,6 @@
 import {
   type AnalysisResult,
   type Meal,
-  type MealIngredient,
   type Result,
   success,
   failure,
@@ -53,21 +52,8 @@ export class MealService {
     try {
       const meals = await this.repository.findByUserId(userId, limit);
       return success(meals);
-    } catch (error) {
+    } catch {
       return failure('ไม่สามารถดึงข้อมูลประวัติได้');
-    }
-  }
-
-  async getMealDetail(
-    mealId: string
-  ): Promise<Result<{ meal: Meal; ingredients: MealIngredient[] } | null>> {
-    try {
-      // Note: We need a findById in Repo if we want details for a specific ID
-      // For now, these details are usually fetched in a list or specific UI
-      // I will assume findById exists or implement it if needed.
-      return failure('Not implemented yet');
-    } catch (error) {
-      return failure('เกิดข้อผิดพลาดในการดึงข้อมูล');
     }
   }
 }

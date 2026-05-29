@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:nodemon": "nodemon",
+    "db:up": "docker compose up -d postgres",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -31,6 +33,7 @@
     "@types/uuid": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "nodemon": "^3.1.14",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

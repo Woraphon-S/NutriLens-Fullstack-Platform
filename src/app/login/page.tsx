@@ -1,9 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowRight, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+
+// Built-in demo account (seeded in the database) for quick try-outs
+const DEMO_CREDENTIALS = { email: 'demo@nutrilens.ai', password: 'demo1234' };
 
 export default function LoginPage() {
   const router = useRouter();
@@ -15,8 +19,7 @@ export default function LoginPage() {
     password: '',
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const doLogin = async (credentials: { email: string; password: string }) => {
     setLoading(true);
     setError('');
 
@@ -24,7 +27,7 @@ export default function LoginPage() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(credentials),
       });
 
       const result = await res.json();
@@ -40,12 +43,23 @@ export default function LoginPage() {
 
       router.push('/dashboard');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
-      toast.error(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    doLogin(formData);
+  };
+
+  const handleDemoLogin = () => {
+    setFormData(DEMO_CREDENTIALS);
+    doLogin(DEMO_CREDENTIALS);
   };
 
   return (
@@ -111,12 +125,30 @@ export default function LoginPage() {
             </button>
           </form>
 
+          {/* Demo account — try the app without signing up */}
+          <div className="mt-4">
+            <div className="relative flex items-center my-4">
+              <div className="flex-grow border-t border-health-border" />
+              <span className="mx-3 text-xs text-health-muted">หรือ</span>
+              <div className="flex-grow border-t border-health-border" />
+            </div>
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              disabled={loading}
+              className="btn-secondary w-full py-3 flex items-center justify-center gap-2"
+            >
+              <Sparkles className="w-4 h-4" />
+              ลองใช้งานด้วยบัญชีทดลอง (Demo)
+            </button>
+          </div>
+
           <div className="mt-8 pt-6 border-t border-health-border text-center">
             <p className="text-sm text-health-muted">
-              ยังไม่มีบัญชีใช่ไหม? 
-              <a href="/register" className="ml-1.5 font-bold text-health-green hover:underline">
+              ยังไม่มีบัญชีใช่ไหม?
+              <Link href="/register" className="ml-1.5 font-bold text-health-green hover:underline">
                 สมัครสมาชิกฟรี
-              </a>
+              </Link>
             </p>
           </div>
         </div>

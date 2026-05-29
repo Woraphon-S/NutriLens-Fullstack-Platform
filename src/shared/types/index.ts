@@ -24,6 +24,18 @@ export interface User {
   createdAt: Date;
 }
 
+// User data safe to send to the client (never includes passwordHash)
+export type SafeUser = Omit<User, 'passwordHash'>;
+
+export function toSafeUser(user: User): SafeUser {
+  return {
+    id: user.id,
+    email: user.email,
+    displayName: user.displayName,
+    createdAt: user.createdAt,
+  };
+}
+
 export interface UserProgression {
   userId: string;
   currentStreak: number;

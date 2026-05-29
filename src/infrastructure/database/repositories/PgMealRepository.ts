@@ -1,7 +1,21 @@
 import { Pool } from 'pg';
 import { pool } from '../db';
 import { MealRepository } from '@/domain/meals/meal.repository';
-import { Meal, MealIngredient, AnalysisResult } from '@/shared/types';
+import { Meal, MealIngredient, AnalysisResult, Macros } from '@/shared/types';
+
+// A meal row enriched with its aggregated macros and ingredient breakdown,
+// as returned by the history query.
+export interface MealWithDetails extends Meal {
+  macros: Macros;
+  ingredients: Array<{
+    name: string;
+    calories: number;
+    protein: number;
+    carbs: number;
+    fat: number;
+    estimatedWeightG: number;
+  }>;
+}
 
 export class PgMealRepository implements MealRepository {
   private db: Pool = pool;
@@ -40,7 +54,7 @@ export class PgMealRepository implements MealRepository {
     }
   }
 
-  async findByUserId(userId: string, limit: number = 20): Promise<any[]> {
+  async findByUserId(userId: string, limit: number = 20): Promise<MealWithDetails[]> {
     const res = await this.db.query(
       `SELECT 
         m.id, 

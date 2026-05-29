@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       success: true,
       data: result.data,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ success: false, error: 'Internal Server Error' }, { status: 500 });
   }
 }
